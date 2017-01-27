@@ -13,22 +13,17 @@
             <url>http://download.java.net/maven/2/</url>
         </repository>
     </repositories>
+  <packaging>war</packaging>
 
-    <build>
-        <pluginManagement>
-            <plugins>
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-compiler-plugin</artifactId>
-                    <version>2.3.2</version>
-                    <configuration>
-                        <source>1.8</source>
-                        <target>1.8</target>
-                    </configuration>
-                </plugin>
-            </plugins>
-        </pluginManagement>
-    </build>
+  <properties>
+    <jetty.plugin.version>9.2.3.v20140905</jetty.plugin.version>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <maven.compiler.source>1.8</maven.compiler.source>
+    <maven.compiler.target>1.8</maven.compiler.target>
+    <junit.version>4.11</junit.version>
+  </properties>
+
+
 
     <dependencies>
         <!-- Javaee API -->
@@ -38,11 +33,47 @@
             <version>6.0</version>
         </dependency>
 
+
+
+      <!-- https://mvnrepository.com/artifact/io.reactivex/rxjava -->
+      <dependency>
+        <groupId>io.reactivex</groupId>
+        <artifactId>rxjava</artifactId>
+        <version>1.2.5</version>
+      </dependency>
+
+      <dependency>
+        <groupId>javax.servlet</groupId>
+        <artifactId>javax.servlet-api</artifactId>
+        <version>3.0.1</version>
+        <scope>provided</scope>
+      </dependency>
+
+      <dependency>
+        <groupId>org.glassfish.jersey.ext.rx</groupId>
+        <artifactId>jersey-rx-client-rxjava</artifactId>
+        <version>2.22.2</version>
+      </dependency>
+
+      <!--<dependency>
+        <groupId>javax.ws.rs</groupId>
+        <artifactId>javax.ws.rs-api</artifactId>
+        <version>2.0-m10</version>
+      </dependency>-->
+
+      <dependency>
+        <groupId>junit</groupId>
+        <artifactId>junit</artifactId>
+        <version>${junit.version}</version>
+        <scope>test</scope>
+      </dependency>
+
         <dependency>
             <groupId>com.restfb</groupId>
             <artifactId>restfb</artifactId>
             <version>1.6.14</version>
         </dependency>
+
         <dependency>
             <groupId>javax.mail</groupId>
             <artifactId>mail</artifactId>
@@ -58,7 +89,7 @@
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-lang3</artifactId>
-            <version>3.3.2</version>
+            <version>3.4</version>
         </dependency>
 
         <dependency>
@@ -164,6 +195,39 @@
       </dependency>
 
     </dependencies>
+
+  <build>
+    <finalName>rxtest</finalName>
+
+      <plugins>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-compiler-plugin</artifactId>
+          <version>2.3.2</version>
+          <configuration>
+            <source>1.8</source>
+            <target>1.8</target>
+          </configuration>
+        </plugin>
+
+
+
+        <!-- The Jetty plugin allows us to easily test the development build by
+      running jetty:run on the command line. -->
+        <plugin>
+          <groupId>org.eclipse.jetty</groupId>
+          <artifactId>jetty-maven-plugin</artifactId>
+          <version>${jetty.plugin.version}</version>
+          <configuration>
+            <scanIntervalSeconds>2</scanIntervalSeconds>
+          </configuration>
+        </plugin>
+
+      </plugins>
+
+
+  </build>
+
 
 
 
