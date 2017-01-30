@@ -11,7 +11,8 @@ import static java.util.stream.Collectors.toList;
 
 public class Example1 {
     public static void main(String[] args) throws InterruptedException {
-        basicFlatMap();
+        basicOperations();
+        //basicFlatMap();
 
         Thread.sleep(10 * 1000);
     }
